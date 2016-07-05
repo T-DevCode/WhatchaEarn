@@ -29,21 +29,39 @@ namespace Bot.Dialogs
             //Return message
             String responseMessage = "";
 
-            OnCompletionAsyncDelegate<BruttoNettoDialog> processCalculation = async (context, state) =>
-            {
-                switch (state.Info)
-                {
-                    case Information.Brutto_Netto_berechnen:
-                        
-                        break;
-
-                    default: break;
-                }
-            };
-
             return new FormBuilder<BruttoNettoDialog>()
                 .Message("Willkommen bei WhatchaEarn!")
                 .Field(nameof(Info))
+                .Field(nameof(BruttoNettoDialog.annualSalary), state => {
+
+
+                    return false;
+                })
+                .Build();
+        }
+
+        private bool Calculate()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+
+/*
+    Pattern Element 	            Description
+    {<format>}                      Value of the current field.
+    {&} 	                        Description of the current field.
+    {<field><format>} 	            Value of a particular field.
+    {&<field>} 	                    Description of a particular field.
+    {||} 	                        Show the current choices which can be the current value, no preference or the possible values for enumerated fields.
+    {[{<field><format>} ...]} 	    Create a list with all field values together utilizing Separator and LastSeparator to separate the individual values.
+    {*} 	                        Show one line for each active field with the description and current value.
+    {*filled} 	                    Show one line for each active field that has an actual value with the description and current value.
+    {<nth><format>} 	            A regular C# format specifier that refers to the nth arg. See TemplateUsage to see what args are available.
+    {?<textOrPatternElement>...} 	Conditional substitution. If all referred to pattern elements have values, the values are substituted and the whole expression is used. 
+*/
+
+/*
                 .Field(new FieldReflector<BruttoNettoDialog>(nameof(annualSalary))
                     .SetType(null)
                     .SetActive((state) => state.Info == Information.Brutto_Netto_berechnen)
@@ -63,22 +81,4 @@ namespace Bot.Dialogs
                         }
                         return null;
                     }))
-                    .OnCompletion(processCalculation)
-                .Build();
-        }
-    }
-}
-
-/*
-    Pattern Element 	            Description
-    {<format>}                      Value of the current field.
-    {&} 	                        Description of the current field.
-    {<field><format>} 	            Value of a particular field.
-    {&<field>} 	                    Description of a particular field.
-    {||} 	                        Show the current choices which can be the current value, no preference or the possible values for enumerated fields.
-    {[{<field><format>} ...]} 	    Create a list with all field values together utilizing Separator and LastSeparator to separate the individual values.
-    {*} 	                        Show one line for each active field with the description and current value.
-    {*filled} 	                    Show one line for each active field that has an actual value with the description and current value.
-    {<nth><format>} 	            A regular C# format specifier that refers to the nth arg. See TemplateUsage to see what args are available.
-    {?<textOrPatternElement>...} 	Conditional substitution. If all referred to pattern elements have values, the values are substituted and the whole expression is used. 
 */
