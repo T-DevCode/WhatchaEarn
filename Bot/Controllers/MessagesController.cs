@@ -18,7 +18,8 @@ namespace Bot
         {
             if (message.Type == "Message")
             {
-                return await Conversation.SendAsync(message, MakeRootDialog);
+                //return await Conversation.SendAsync(message, MakeRootDialog);
+                return await Conversation.SendAsync(message, () => new BruttoNettoDialog());
             }
             else
             {
@@ -26,10 +27,10 @@ namespace Bot
             }
         }
 
-        internal static IDialog<BruttoNettoDialog> MakeRootDialog()
+        /*internal static IDialog<BruttoNettoDialog> MakeRootDialog()
         {
             return Chain.From(() => FormDialog.FromForm(BruttoNettoDialog.BuildForm));
-        }
+        }*/
 
         private Message HandleSystemMessage(Message message)
         {
