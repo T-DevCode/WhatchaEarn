@@ -7,6 +7,7 @@ using System.Web;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading.Tasks;
 using Microsoft.Bot.Connector;
+using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace Bot.Dialogs
 {
@@ -35,7 +36,7 @@ namespace Bot.Dialogs
             }
         }
 
-        public async Task ReceiveMessageAsync(IDialogContext context, IAwaitable<Message> argument)
+        public async Task ReceiveMessageAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             /* _respond = "Wie können wir dir helfen?"
                             + "1. Brutto Netto berechnen\n"

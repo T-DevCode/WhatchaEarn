@@ -4,27 +4,21 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using Bot.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
+using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace Bot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        /// <summary>
-        /// POST: api/Messages
-        /// Receive a message from a user and reply to it
-        /// </summary>
-        public async Task<Message> Post([FromBody]Message message)
+        public async Task StartAsync(IDialogContext context)
         {
-            if (message.Type == "Message")
-            {
-                //return await Conversation.SendAsync(message, MakeRootDialog);
-                return await Conversation.SendAsync(message, () => new BruttoNettoDialog());
-            }
-            else
-            {
-                return HandleSystemMessage(message);
-            }
+            context.Wait(MessageReceivedAsync);
+        }
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        {
+            return await Conversation.SendAsync(message, () => new BruttoNettoDialog());
+            context.Wait(MessageReceivedAsync);
         }
 
         /*internal static IDialog<BruttoNettoDialog> MakeRootDialog()
